@@ -10,7 +10,7 @@ export async function POST(req) {
     }
 
     const uploadResponse = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
       {
         method: "POST",
         body: formData,
@@ -37,17 +37,17 @@ export async function DELETE(req) {
     const regex = /\/upload\/v\d+\/(uploadimages\/[^.]+)\.\w{3,4}$/;
     const publicId = url.match(regex);
     const timestamp = new Date().getTime();
-    const string = `public_id=${publicId[1]}&timestamp=${timestamp}${process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET}`;
+    const string = `public_id=${publicId[1]}&timestamp=${timestamp}${process.env.CLOUDINARY_API_SECRET}`;
     const signature = sha1(string);
 
     const formData = new FormData();
     formData.append("public_id", publicId[1]);
     formData.append("signature", signature);
-    formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+    formData.append("api_key", process.env.CLOUDINARY_API_KEY);
     formData.append("timestamp", timestamp);
 
     const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/destroy`,
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/destroy`,
       {
         method: "POST",
         body: formData,
