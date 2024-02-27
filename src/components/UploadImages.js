@@ -59,7 +59,7 @@ const ImageUploader = () => {
                 <Image
                   src={elem.secure_url}
                   alt={elem.original_filename}
-                  className="rounded-full"
+                  className="rounded-full w-full h-full"
                   width={120}
                   height={120}
                 />
